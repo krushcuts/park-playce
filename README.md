@@ -4,115 +4,225 @@
 
 ---
 
-## OVERVIEW
+## 1. WHAT IS THIS GAME?
 
-Quarter Drain is a fast-cycle roguelike where you build an arcade empire from nothing, watch it peak, and navigate its inevitable decline. Every run starts in a garage. Every run ends somewhere different. The best players don't survive longest — they read the arc better than anyone else.
+Quarter Drain is a third-person roguelike action-management game. You play as the owner of an arcade, physically present on the floor, building an empire from a single machine in a garage to whatever you can hold together over 10 years.
 
-Built to look and feel like a SEGA Genesis cartridge. Runs in the browser. A full run takes under 15 minutes.
+Every run starts the same: a garage, a worn cabinet bought from a classified ad, $85, and moderate consistent foot traffic. Every run ends somewhere different. The goal is not to win — it is to peak gracefully and exit at the right moment.
 
----
-
-## CORE PHILOSOPHY
-
-**Inevitable, satisfying decline.**
-
-You are not trying to win. You are trying to *peak gracefully*. The rival will come. The machines will age. The kids will move on. Your job is to build something worth remembering and exit before it turns sad.
+**Genre:** Roguelike / Action Management
+**Perspective:** Third-person isometric (Hades-style)
+**Platform:** Browser (HTML5 Canvas)
+**Target run length:** Under 15 minutes
+**Aesthetic:** SEGA Genesis — dark palette, FM synth audio, chunky pixels
 
 ---
 
-## THE LOOP
+## 2. HOW DO YOU PLAY IT?
 
-1. Name your arcade
-2. Draw your starting hand — genre, mechanic, difficulty, cabinet condition, neighborhood, year
-3. Start in the garage with one machine
-4. Build popularity, bolt on features, manage decay events
-5. Read the valuation curve — sell, pivot, or hold
-6. 10 year maximum
-7. Where you land is your ending
+### Controls
+- **WASD / Arrow Keys** — move the owner character around the arcade floor
+- **Z** — interact with the nearest highlighted object
+- **ESC** — pause / menu
 
----
+### The Camera
+Isometric top-down view. The floor is always visible. You are a character on it — depth-sorted with patrons, furniture, and machines. You can walk behind the sofa, in front of the cabinet, through the crowd.
 
-## STARTING CONDITIONS
+### Moment to Moment
+You are in the room. Patrons enter through the garage door, queue at machines, spend quarters, and leave. Problems appear as floating indicators above machines and patrons. You walk to them and press Z to resolve them.
 
-Every run begins with a randomized hand drawn from a finite pool of known elements. No building. No choosing. Just a garage, a machine, and the clock.
+The arcade runs without you — revenue ticks up, decay ticks down — but problems only get fixed when you physically get there. Being in one place means not being somewhere else. That tension is the game.
 
-| Element | Pool |
+### Your Tools
+Tools replace abilities. Each is equippable, upgradeable, and carries a shadow of its upgrade into the next run.
+
+| Tool | Function | Upgrade Path |
+|---|---|---|
+| **Wrench** | Fixes broken machines | → Faster fix → Fix without stopping |
+| **Cash Roll** | Restocks change machine | → Larger capacity → Auto-restock |
+| **Clipboard** | Check stats and patron mood | → Wider radius → Predictive decay |
+| **Megaphone** | Direct patrons | → Larger radius → Redirect mid-queue |
+| **Mop** | Clean spills and hazards | → Faster → Passive auto-mop aura |
+
+### Interactable Objects
+Walk up to anything and a prompt appears. Press Z to act.
+
+| Object | Interaction |
 |---|---|
-| Genre | Fighter, Racer, Shooter, Platformer, Puzzle |
-| Core Mechanic | One Button, Joystick Precision, Rhythm-Based |
-| Difficulty Curve | Punishing, Fair, Easy |
-| Cabinet Condition | Mint, Worn, Damaged, Barely Working |
-| Neighborhood Traffic | Low, Medium, High |
-| Starting Year | Randomized within era |
-
-As you unlock new endings and achievements, new elements enter the pool. Veteran players face stranger, richer deals.
-
----
-
-## MAKING A GAME
-
-Your first machine is dealt, not designed. The combination of genre, mechanic, and difficulty determines:
-
-- **Popularity ceiling** — how high it can peak
-- **Lifespan** — how long before decay sets in
-- **Audience** — who shows up and how long they stay
-
-A punishing fighter burns hot and short. An easy puzzle game is slow but sticky. A rhythm-based racer on fair difficulty is a crowd pleaser with a long tail. Learn the combinations. Play the hand.
+| Cabinet (healthy) | Collect coin tray — empties accumulated coins into your pocket |
+| Cabinet (full tray) | Collect immediately — machine stops accepting coins when tray is full |
+| Cabinet (broken) | Fix it — wrench animation, machine restarts |
+| Cabinet (coin jam) | Clear jam — coins scatter on floor |
+| Change Machine (stocked) | Deposit collected coins — keeps patrons supplied with quarters |
+| Change Machine (low) | Deposit urgently — patrons can't play if it runs dry |
+| Change Machine (any) | Raid it — pulls quarters for a classifieds page flip. Consequences if drained. |
+| Change Machine (absent) | No change machine = patrons with bills can't play. First purchase priority. |
+| Payphone | Open classifieds — browse 3 machine listings for your next purchase. Flip page by raiding change machine. Must be purchased first — not a starting item. |
+| Patron (queue) | Direct to different machine or eject |
+| Patron (rowdy) | Confront — they calm or leave |
+| Patron (VIP) | Intercept before they get bored — bonus revenue |
+| Door | Toggle open / closed |
 
 ---
 
-## DECAY SYSTEM
+## 3. THE CORE LOOP
 
-Decay happens as **events**, not erosion. Gut punches, not a slow bleed.
-
-- A newer machine opens across town
-- A kid figures out the cheat code and word spreads
-- Your cabinet breaks down on a Saturday night
-- A review in the local paper
-- The rival makes a move
-
-Every event is a decision moment.
-
----
-
-## FEATURE CARDS
-
-Bolt-ons that extend life, spike popularity, or change trajectory. Some are traps. Reading which card fits your current arc is skill expression.
-
-| Card | Effect |
-|---|---|
-| Continue Credits | Extends session length, small revenue bump |
-| 2-Player Mode | Popularity spike, doubles wear |
-| High Score Board | Loyalty boost, regulars stay longer |
-| Cabinet Art Upgrade | One-time hype injection |
-| Tournament Hosting | Major spike, major cost |
-| Blast Processing | +40% hype. Questionable actual effect. |
-| Cheat Code Leak | Short spike, then backlash |
-| Nostalgia Premium | *Unlocked via legacy* |
-| Cult Following | *Unlocked via legacy* |
-
----
-
-## THE RIVAL
-
-One named rival. Personal. They don't just compete — they make offers.
-
-The offer climbs as your valuation grows, peaks, then starts to slip. At the peak, a blinking prompt:
+Every run follows the same structure:
 
 ```
-RIVAL HAS MADE THEIR BEST OFFER.
-[ACCEPT]  [DECLINE]
+NAME YOUR ARCADE
+       ↓
+CLASSIFIED AD — buy a worn machine
+       ↓
+MACHINE STATS CARD — see what you drew
+       ↓
+GARAGE — week 1, 1987, one machine
+       ↓
+BUY CHANGE MACHINE — patrons need quarters to play
+       ↓
+BUILD POPULARITY → COLLECT COINS FROM CABINETS → RESTOCK CHANGE MACHINE → MANAGE DECAY EVENTS
+       ↓
+BUY PAYPHONE — unlocks fleet expansion and generates passive revenue
+       ↓
+BUY MORE MACHINES / UPGRADES / OPERATIONAL ITEMS
+       ↓
+LOCATION TRANSITION — choose your next space
+       ↓
+GROW OR PIVOT OR SELL
+       ↓
+10 YEARS MAXIMUM — ending determined by your decisions
 ```
 
-Take it clean and the end screen is celebratory. Hold too long and they lowball you. Hold even longer and they just outlast you.
-
-The buyout track cuts across all tiers and is available at any time.
+The run ends when you go bankrupt, get shut down, sell to the rival, or survive 10 years. Where you are and what you've built when the clock stops is your ending.
 
 ---
 
-## THE 22 ENDINGS
+## 4. THE 10-YEAR ARC
 
-Every run ends somewhere. The space you're in when the run ends is the ending. No classification screen. The player knows.
+### Starting Locations
+Every run begins in a **garage**. Always. The garage is the origin. It is the emotional anchor of the whole game.
+
+### Location Progression
+You don't automatically advance. At threshold moments — lease expiry, capacity limits, rival pressure, health code events — you are presented with **location cards** and you choose.
+
+```
+GARAGE → STOREFRONT → MALL UNIT → STANDALONE BUILDING → PIVOT LOCATION
+```
+
+Each location has a floor capacity, weekly rent, and demographic profile. Moving costs money and loses a few loyal patrons who won't travel. Staying put costs you growth.
+
+### The Choose Your Own Adventure Moment
+
+At a transition trigger, three cards appear:
+
+```
+YOUR LEASE IS UP. THREE OFFERS ON THE TABLE.
+
+┌─────────────────────┐  ┌─────────────────────┐  ┌─────────────────────┐
+│  VALLEY MALL        │  │  ROSEWOOD LANES     │  │  STAY PUT           │
+│  Unit 14B           │  │  Bowling Alley      │  │  Month-to-month     │
+│  ─────────────────  │  │  ─────────────────  │  │  ─────────────────  │
+│  TIER 2             │  │  TIER 3             │  │  CURRENT            │
+│                     │  │                     │  │                     │
+│  + High foot traffic│  │  + Cheap rent       │  │  + No moving cost   │
+│  + Climate control  │  │  + Loyal locals     │  │  - Rent up 20%      │
+│  - Strict lease     │  │  - Low ceiling      │  │  - Rival encroaches │
+│  - Moving cost $400 │  │  - Moving cost $150 │  │                     │
+│                     │  │                     │  │                     │
+│  CAP: 6 machines    │  │  CAP: 3 machines    │  │  CAP: 2 machines    │
+│  RENT: $180/wk      │  │  RENT: $60/wk       │  │  RENT: $95/wk       │
+└─────────────────────┘  └─────────────────────┘  └─────────────────────┘
+```
+
+Stay put is always an option. The rival sub-lease is occasionally one of the three cards — operating inside their building, revenue share, their name on the sign. It may be the only financially viable option. It is always a compromise of identity.
+
+**Transition triggers:**
+- Lease expires
+- Floor is at max capacity
+- Rival opens next door
+- Health code failure
+- Year milestones (end of year 2, 5, 8)
+- Unexpected windfall offer
+
+### Floor Capacity by Location
+
+| Location | Max Machines |
+|---|---|
+| Garage | 2 |
+| Storefront | 4 |
+| Mall Unit | 6 |
+| Standalone Building | 8–10 |
+| Pivot Locations | Varies (Bowling: 3, Barcade: 5, Boardwalk: 8) |
+
+### The Era System
+
+Every run passes through up to four eras. Each era has a distinct cultural climate that affects patron behavior, machine values, event card pools, and the rival's aggression. The passage of time is not neutral — the world changes around your arcade whether you're ready or not.
+
+**Starting year: always 1987.** Every new run opens in the same year. The crash survivors are your competition. Something good is coming — you just have to build toward it. Earlier starting years unlock through progression but 1987 is always the baseline.
+
+| Era | Years | Climate | Mechanical Effect |
+|---|---|---|---|
+| **The Wreckage** | 1985–1986 | The crash is happening. Consumer trust is gone. Arcades closing nationwide. | Low foot traffic. High rent pressure. Rival is desperate and aggressive. Only available after unlock — not recommended for new players. |
+| **The Recovery** | 1987–1990 | Post-crash. Beat 'em ups dominate. Lean, identity-driven arcades. | Moderate, consistent foot traffic. Pinball nostalgia premium begins. Barcade path opens. Fighter machines building momentum. |
+| **The Boom** | 1991–1993 | Brawl Kings II drops. Arcades explode. Teen demographic floods in. Controversy follows. | Fighter machines hit highest popularity ceiling in the game. Tournament system fully active. Controversy events possible. |
+| **The 3D Window** | 1994–1996 | 3D cabinets arrive. Arcades have hardware consoles can't match. Last great technological advantage. | 3D Cabinet machine type unlocked. Premium pricing possible. Spectator events peak. Home console warning card fires. |
+| **The Reckoning** | 1997–1999 | Home consoles close the gap. The writing is on the wall. | Patron spawn slows. Decay accelerates on older machines. Step Fever and redemption machines available as pivots. Barcade and Indie Pinball are the most viable exits. |
+
+### How the Eras Affect the Floor
+
+Eras shift the game's conditions organically — no forced purchase windows, no time-locked events you must act on to survive. The world changes around you and you respond on your own terms.
+
+**What actually changes between eras:**
+
+- **Patron demographics shift** — The Recovery brings older, loyal patrons. The Boom floods the floor with teens. The Reckoning thins the crowd.
+- **Machine popularity ceilings change** — Fighter machines peak higher during The Boom. Pinball nostalgia premium builds through The Recovery. 3D Cabinets command premium pricing in The 3D Window.
+- **Distributor catalog expands** — New machine types become available as eras progress. Beat 'em ups in 1987. 3D Cabinets in 1994. Dance Cabinets in 1998. They appear in the catalog when the era arrives — you buy them when you're ready, if you want them.
+- **Classified ads reflect the era** — What's available in the paper changes. Late Boom era floods the classifieds with fighter machines. Reckoning era fills them with machines from closing arcades — cheap, worn, a little sad.
+- **Rival behavior** — Aggressive during The Wreckage. Opportunistic during The Boom. Predatory during The Reckoning.
+- **Decay rate** — Accelerates in The Reckoning as home consoles close the gap. Not a card. Not an announcement. Just a number quietly changing in the background.
+
+The eras are weather. You don't fight the weather — you dress for it.
+
+### Starting Year Unlocks
+
+| Unlock Condition | Starting Year |
+|---|---|
+| Always — fixed | 1987 |
+| Survive to 1994 in any run | 1985 — deep in the crash, two years before recovery |
+| Reach any Tier 1 ending | 1991 — start right at the Boom |
+| Complete all 22 endings | 1978 — the true beginning |
+
+Starting in 1991 hands you the Boom but gives you fewer years before the Reckoning. Starting in 1985 is the hardest arc — open during the crash, fight through the wreckage to reach the Recovery, and if you survive that, the Boom.
+
+### Machine Type Catalog
+
+Every machine on your floor belongs to a genre and machine type. New types become available as eras progress — they appear in the distributor catalog and eventually in the classifieds. This list is not comprehensive. Players can accumulate many machines across many genres over a run. These are the types the game draws from.
+
+| Genre / Machine Type | Era Available | Mechanic | Notes |
+|---|---|---|---|
+| Fighter | Always (1987+) | Dual Joystick | Core starting genre. High ceiling, short tail. |
+| Racer | Always (1987+) | Steering Wheel | Core starting genre. Broad appeal, steady curve. |
+| Shooter | Always (1987+) | Light Gun | Core starting genre. Long tail, loyal regulars. |
+| Beat 'em Up | 1987+ | Dual Joystick | Arrives with The Recovery. Crowd-pleaser. |
+| Platformer | 1987+ | Single Joystick | Family friendly. Long tail. Kids demographic. |
+| Puzzle | 1987+ | Trackball or 1-Button | Slow build. Intellectual crowd. Very long tail. |
+| Maze | 1987+ | Single Joystick | Classic appeal. Broad demographic. Safe pick. |
+| Pinball | Any era | Flippers | Mid-run acquisition only. Appreciates over time. |
+| Sports | 1987+ | Dual Joystick | Seasonal spikes. Wide age range. |
+| Horror | 1987+ | Light Gun or Joystick | High novelty. Controversy risk. Cult potential. |
+| Sit-Down Racer | 1989+ | Steering Wheel + Seat | Upgrade path from standard Racer. |
+| 3D Fighter | 1994+ | Dual Joystick | The 3D Window era. Premium price. Spectator magnet. |
+| 3D Racer | 1994+ | Steering Wheel | Large footprint. Highest immersion available. |
+| Dance Cabinet | 1998+ | Floor Pads | The Reckoning pivot. New demographic entirely. |
+| Redemption | Any era | Varies | Ticket games. Kids and families. Lower per-play revenue, high volume. |
+
+**Name generation:** Every machine gets a procedurally generated title drawn from genre-specific word pools. No two runs will produce the same named machine. See section 6 for the name pools.
+
+---
+
+## 5. THE 22 ENDINGS
+
+You don't choose your ending. You accumulate it. The space you're in when the run ends is the ending. No classification screen. The player knows.
 
 ### TIER 0 — FAILURE
 *A notice taped to the door.*
@@ -153,76 +263,12 @@ Every run ends somewhere. The space you're in when the run ends is the ending. N
 - Amusement Park Midway
 - Barcade
 - Standalone Arcade
-- **Indie Pinball Arcade** ← prestige run
+- **Indie Pinball Arcade** ← prestige ending
 
----
+Plus the **rival buyout track** — available at any time, cuts across all tiers.
 
-## THE INDIE PINBALL RUN
-
-The hardest ending to reach. Requires resisting scale, curating obsessively, surviving on reputation alone. You don't chase volume. You chase perfection. A dimly lit room, machines maintained with devotion, a line out the door on weekends.
-
-Most players never get there.
-
----
-
-## THE LOCATION ARC
-
-You don't choose your ending. You accumulate it.
-
-```
-GARAGE → STOREFRONT → MALL UNIT → STANDALONE BUILDING → PIVOT LOCATION
-```
-
-Each move is a milestone and a risk. The space you're in when the run ends is the ending.
-
-The garage is always the beginning. Everyone starts there. That's where the nostalgia lives.
-
----
-
-## META PROGRESSION
-
-### Ending Unlocks
-Reach an ending, unlock something new:
-- New starting elements enter the random pool
-- Cabinet paint colors and designs
-- Carpet patterns for your floor
-- Marquee fonts and sign styles
-- Patron sprite costumes
-- Rival skins and personality types
-
-Even bankruptcy unlocks your first paint color. No wasted run.
-
-### Achievement Unlocks
-How you played matters as much as where you landed.
-
-**Genre Purist**
-- Only racing games all run — *"Pole Position"*
-- Only fighters — *"Final Round"*
-- Only puzzle games — *"Big Brain"*
-- Never repeat a genre — *"Eclectic"*
-
-**Business Behavior**
-- Never accept the rival's offer — *"Never Sold Out"*
-- Accept the very first offer — *"Pragmatist"*
-- Reach Tier 1 without ever leaving the original storefront
-- Go bankrupt three runs in a row — *"Glutton for Punishment"*
-
-**Machine Behavior**
-- Never add a single feature card — *"Pure"*
-- Stack every possible feature on one machine — *"Frankenstein"*
-- Only ever own one machine — *"Minimalist"*
-
-**Meta**
-- Reach all 22 endings — *"I've Seen Everything"*
-- Name your arcade the same thing 10 runs in a row
-
----
-
-## THE END SCREEN
-
-Not a game over card. A closing night scene. Your arcade floor one last time, machines going dark one by one. A final tally — years open, peak popularity, machines owned. And the number.
-
-Then a single line:
+### The End Screen
+Not a game over card. A closing night scene. Machines going dark one by one. A final tally. Then a single line:
 
 ```
 "You knew when to walk away."      ← perfect exit
@@ -230,292 +276,35 @@ Then a single line:
 "They got you cheap."              ← held too long
 ```
 
-Failure endings get something different entirely. Just a notice taped to a dark door.
+Failure endings get a notice taped to a dark door. Nothing else.
 
 ---
 
-## AESTHETIC
+## 6. YOUR STARTING MACHINE
 
-- **Platform:** Browser / HTML5 Canvas
-- **Visual Style:** SEGA Genesis — dark palette, chunky pixels, neon-on-black, Mode 7-inspired top-down floor view
-- **Audio:** FM synthesis via Web Audio API. Each cabinet has its own generated chiptune. The audio is the popularity meter.
-- **UI Language:** Genesis RPG menus. Bordered dialogue boxes. Satisfying cursor click. Zero friction on restart.
-- **Run Length:** Under 15 minutes
-- **Restart:** Immediate
+### The Intro Sequence
 
----
+**Beat 1 — Name Your Arcade**
+Blinking cursor. Up to 14 characters. This name goes on the marquee, the lease, the rival's offer, and the closing night screen.
 
-## BUILD ORDER
-
-- [ ] The floor — top-down space, one cabinet, wandering patron sprites
-- [ ] The money loop — quarters, popularity curve, basic decay
-- [ ] The build menu — genre selection, cabinet reflected on floor
-- [ ] Feature cards — bolt-ons affecting the curve
-- [ ] The rival — pressure mechanic, offer system, endings
-- [ ] Sound — FM-flavored chiptunes as final layer
-
----
-
-## STATUS
-
-> Pre-production. Design locked. Build starts tomorrow.
-
----
-
-*Quarter Drain is a game about arcades made to feel like one.*
-
----
-
-## UPGRADES & PURCHASES
-
-Three categories. The distinction matters mechanically and for design integrity.
-
----
-
-### CATEGORY 1 — OPERATIONAL
-*Things that directly affect revenue, foot traffic, compliance, or survival. Some are gating items — without them, certain failure states become likely or inevitable.*
-
-**Money Infrastructure**
-- Change Machine — patrons can't play without quarters. Without this, foot traffic is wasted. Tier 1 unlock.
-- ATM — raises the spending ceiling. Patrons stay longer and spend more. Mid-game purchase.
-- Cash Register / Safe — reduces theft event probability. Required for later tiers.
-- Coin Counter Machine — reduces end-of-week accounting losses (passive income boost)
-
-**Machines & Revenue**
-- Additional Arcade Cabinets — core expansion. Each has its own popularity curve.
-- Pinball Machine — slower burn, different demographic, higher maintenance cost
-- Redemption Machine (ticket games) — brings in families, lower per-quarter but higher volume
-- Photo Booth — passive income, zero maintenance curve, low ceiling
-- Vending Machine — food/drink revenue, small but reliable
-- Jukebox — ambient, patron mood booster, small revenue stream
-
-**Operations**
-- Restroom — required for certain tier upgrades (health code). Unlocks longer patron stays.
-- Air Conditioning — seasonal mechanic. Summer without AC = patron comfort penalty
-- Security Camera — reduces theft events and vandalism damage
-- Alarm System — reduces break-in event probability (late-game threat)
-- Phone Line — required for tournament hosting and some feature cards
-
-**Visibility**
-- Exterior Neon Sign — increases foot traffic (patrons walking by convert higher)
-- Sandwich Board / Sidewalk Sign — cheaper foot traffic boost, early game
-- Flyer Distribution — temporary foot traffic spike, one-time purchase
-
----
-
-### CATEGORY 2 — SOFT MECHANICAL
-*Aesthetic purchases that have real but indirect effects. Spending on vibes instead of machines is a legitimate strategy. The tension is the design.*
-
-**Seating**
-- Basic Folding Chairs — slight dwell time boost. Cheap.
-- Old Sofa (starting item) — medium dwell time. Already in garage.
-- Decent Couch — better dwell time, higher patron comfort rating
-- Nice Sectional — significant dwell time boost, unlocks "lounge crowd" patron type
-- Bar Stools — pairs with bar tables. Enables standing-around culture.
-- Bar Top Tables (starting items) — already in garage. Medium dwell boost.
-- Proper Bar Tables — upgraded version. Better comfort, better look.
-
-**Comfort & Atmosphere**
-- Better Lighting — increases foot traffic conversion and patron mood
-- Ceiling Fan — small comfort boost, visible on floor
-- Carpet Upgrade — patron mood, reduced noise complaints (event mitigation)
-- Dedicated Smoking Area — 1980s mechanic. Adds patron type, risk of fire event.
-- Coat Rack / Lost & Found — tiny loyalty boost. Very cheap. Charming.
-
-**Social Infrastructure**
-- Bulletin Board — enables community events, small loyalty boost
-- High Score Display (wall-mounted) — popularity boost, patron competition behavior
-- Trophy Case — prestige boost, unlocks tournament events
-- Newspaper / Magazine Rack — dwell time boost (waiting patrons)
-
----
-
-### CATEGORY 3 — PURE COSMETIC
-*No mechanical effect. Exist for player expression and unlock satisfaction. These are the things you spend money on when you're winning — or when you're proud of your place.*
-
-**Surfaces**
-- Wall Paint Colors (unlocked via achievements and endings)
-- Floor Carpet Patterns (unlocked via achievements)
-- Ceiling Tiles
-- Wainscoting / Wall Trim styles
-
-**Decorations**
-- Fake Arcade Game Posters (unlocked via achievements — the poster wall)
-- Custom Marquee Fonts for your arcade name
-- Neon Sign Colors and styles (decorative, separate from operational sign)
-- Plants / Fake Plants
-- Vintage Clocks
-- Lava Lamps
-- Pinball Backglass Art (decorative versions of locked games)
-- Seasonal Decorations (Halloween, Christmas — era-appropriate)
-
-**Patron Cosmetics**
-- Patron sprite costume unlocks (unlocked via achievements)
-- Staff sprite (if you hire staff — later mechanic)
-
----
-
-### UPGRADE TIERS BY LOCATION
-
-Not all upgrades are available from the start. Availability gates by location tier.
-
-| Upgrade | Garage | Storefront | Mall | Standalone | Pivot |
-|---|---|---|---|---|---|
-| Change Machine | ✓ | ✓ | ✓ | ✓ | ✓ |
-| ATM | — | ✓ | ✓ | ✓ | ✓ |
-| Restroom | — | — | ✓ | ✓ | ✓ |
-| Air Conditioning | — | ✓ | ✓ | ✓ | ✓ |
-| Security Camera | — | ✓ | ✓ | ✓ | ✓ |
-| Trophy Case | — | — | — | ✓ | ✓ |
-| Sectional Sofa | — | ✓ | ✓ | ✓ | ✓ |
-| Neon Sign (exterior) | — | ✓ | ✓ | ✓ | ✓ |
-
----
-
-### DESIGN NOTES
-
-**The Change Machine is the most important early purchase.** It's not glamorous. It doesn't show up on the floor in a satisfying way. But without it, patrons who don't have quarters leave. It should be purchasable in week 1 and feel like a rite of passage.
-
-**The ATM is the first aspirational purchase.** Seeing it go in should feel like a milestone. It means you believe in yourself enough to invite people to take out money in your building.
-
-**Soft mechanical upgrades create the real strategic tension.** Do you buy a third cabinet or upgrade the seating? The right answer changes based on your current popularity curve, your patron dwell time, and how close the rival is.
-
-**Cosmetic unlocks should feel earned, not bought.** Paint colors and carpet patterns shouldn't be purchasable with in-game money — they should unlock via achievements and endings. The aesthetic of your arcade is your biography, not your budget.
-
-
----
-
-## STARTING MACHINE — NEW PLAYER RULES
-
-On a fresh campaign with no save data, the starting machine is drawn from a restricted pool. This pool expands as the player completes runs and unlocks new characteristics.
-
----
-
-### THE STARTING POOL (No Unlocks)
-
-| Characteristic | Options | Draw Type |
-|---|---|---|
-| Genre | Fighter, Racer, Shooter, Pinball | Random draw (1 of 4) |
-| Core Mechanic | Dual Joystick, Steering Wheel, Light Gun, Flippers* | Random draw (1 of 3); Flippers auto-assigned if Pinball drawn |
-| Difficulty Curve | Escalating | Fixed — no draw |
-| Cabinet Condition | Worn | Fixed — no draw |
-| Player Count | 1P Only, 2P Competitive, 2P Co-op | Random draw (1 of 3) |
-| Cost Per Play | 1 Quarter, 2 Quarters | Random draw (1 of 2) |
-
-54 possible starting combinations. Enough variety that runs feel different. Small enough that experienced players can learn every permutation.
-
----
-
-### NATURAL vs UNUSUAL COMBOS
-
-Some genre + mechanic pairings are natural. Others are unusual. Both are valid draws — unusual combos get a novelty bonus at launch but a faster decay rate.
-
-**Natural Pairings** — steady curve, reliable behavior
-- Fighter + Dual Joystick
-- Racer + Steering Wheel
-- Shooter + Light Gun
-
-**Unusual Pairings** — novelty spike, faster decay
-- Fighter + Light Gun → target-shooting brawler
-- Fighter + Steering Wheel → vehicular combat, niche appeal
-- Racer + Dual Joystick → top-down arcade racer, lower immersion
-- Racer + Light Gun → road combat hybrid, wild card
-- Shooter + Dual Joystick → twin-stick shooter, actually strong
-- Shooter + Steering Wheel → on-rails turret game, cult potential
-
----
-
-### DERIVED STATS
-
-The four derived stats are calculated from the combination — not drawn directly. Learning what combination produces what derived stats is the skill layer.
-
-**Popularity Ceiling** — how high this machine can peak
-**Revenue Rate** — quarters per hour at peak popularity
-**Lifespan** — weeks before decay becomes significant
-**Novelty** — the opening burst of curiosity traffic
-
-| Genre | Ceiling | Revenue | Lifespan | Novelty |
-|---|---|---|---|---|
-| Fighter | High | High | Short | High |
-| Racer | Medium | Medium | Medium | Medium |
-| Shooter | Medium | Medium | Long | Low |
-
-| Mechanic | Ceiling mod | Revenue mod | Lifespan mod | Novelty mod |
-|---|---|---|---|---|
-| Dual Joystick | — | — | + | — |
-| Steering Wheel | — | — | — | ++ (spectators) |
-| Light Gun | + | — | — | ++ (crowd gather) |
-
-| Players | Effect |
-|---|---|
-| 1P Only | Predictable throughput. Steady. |
-| 2P Competitive | Revenue doubles when both seats filled. Spectator popularity boost. |
-| 2P Co-op | Longer sessions. Lower throughput. Higher patron satisfaction. |
-
-| Cost | Effect |
-|---|---|
-| 1 Quarter | More plays per hour. Lower revenue ceiling. Higher patron goodwill. |
-| 2 Quarters | Fewer plays. Higher revenue per patron. Steeper fall if unpopular. |
-
----
-
-### MACHINE NAME GENERATION
-
-Every machine gets a procedurally generated title on acquisition. The name goes on the cabinet marquee. Generated from genre + mechanic word pools.
-
-**Fighter titles** — IRON FIST, BATTLE CLASH, STEEL KOMBAT, DEATH ROUND, FURY CAGE
-**Racer titles** — TURBO CIRCUIT, SPEED DEMON, NITRO KING, ROAD FURY, APEX RUN
-**Shooter titles** — STELLAR FORCE, BLASTER ZONE, COSMIC RAID, TARGET ZERO, NOVA STRIKE
-
-Unusual combos get hybrid names — Fighter + Steering Wheel might produce DEATH RALLY or CAGE RACE. This is also an unlock target: reaching certain endings unlocks new name components for the pool.
-
----
-
-### DIFFICULTY: ESCALATING (FIXED FOR NEW PLAYERS)
-
-Escalating difficulty is the best teaching tool for new players. It starts easy — patrons enter, stay long, learn the machine. Revenue is modest. Then the difficulty ramps and credits burn faster. Revenue peaks. Then it gets too hard for casual players and the tail begins.
-
-This teaches the popularity arc naturally. By the time a player unlocks other difficulty curves, they understand what decay feels like.
-
----
-
-### CONDITION: WORN (FIXED FOR NEW PLAYERS)
-
-The starting machine is worn. It works fine — patrons enjoy it — but it has a maintenance clock running from day one. Every few weeks there's a chance of a breakdown event. A breakdown costs money and loses a few days of revenue.
-
-This is intentional friction. It teaches:
-- Keep a repair budget
-- Nothing runs forever
-- The cabinet you buy from a classified ad is never perfect
-
----
-
-### THE INTRO SEQUENCE
-
-Three beats before the garage floor appears:
-
-**Beat 1: Name Your Arcade**
-Blinking cursor. Type anything. Up to 14 characters. This name goes on the marquee, the lease, the rival's buyout offer, and the closing night screen.
-
-**Beat 2: The Classified Ad** *(to be built)*
-A newspaper clipping, 1981. Smudged newsprint aesthetic. Procedurally assembled from the machine draw. The player learns what they bought and from whom before they ever see the garage.
-
+**Beat 2 — The Classified Ad**
+A single newspaper clipping, 1987. Your first machine — one listing, no browsing, no choice. You called about one ad. This is what you got.
 ```
-THE DAILY REGISTER  —  CLASSIFIEDS  —  JUNE 4, 1981
+THE DAILY REGISTER  —  CLASSIFIEDS  —  JUNE 4, 1987
 
 FOR SALE: [GENRE] arcade cabinet, [MECHANIC] controls.
 Works good. Some wear. Moving, must sell. $[PRICE].
 Call Ray after 6pm. [PHONE NUMBER].
 ```
+All subsequent machine purchases use the payphone on the wall and show 3 listings at once. The opening is the only time you see just one — unless you've unlocked the *"First Listing"* achievement, in which case the opening classified ad screen shows 3 listings. You've earned the right to browse.
 
-**Beat 3: Machine Stats Card** *(to be built)*
-The hand revealed. Full characteristics plus derived stats shown as bar meters. The player sees exactly what they're working with before the clock starts.
-
+**Beat 3 — Machine Stats Card**
+Your hand revealed before the clock starts.
 ```
 ╔══════════════════════════════╗
 ║  MACHINE ACQUIRED            ║
 ║  ————————————————————————    ║
-║  NAME:       [GENERATED]     ║
+║  NAME:       IRON FIST       ║
 ║  GENRE:      FIGHTER         ║
 ║  CONTROLS:   DUAL JOYSTICK   ║
 ║  DIFFICULTY: ESCALATING      ║
@@ -530,205 +319,515 @@ The hand revealed. Full characteristics plus derived stats shown as bar meters. 
 ╚══════════════════════════════╝
 ```
 
-After the stats card — the garage door opens. The clock starts. Week 1, 1981.
+### The Starting Pool (New Player — No Unlocks)
+
+| Characteristic | Options | Notes |
+|---|---|---|
+| Genre | Fighter, Racer, Shooter | Random draw — 3 options |
+| Core Mechanic | Dual Joystick, Steering Wheel, Light Gun | Random draw — 3 options |
+| Difficulty Curve | Escalating | Fixed for new players |
+| Cabinet Condition | Worn | Always |
+| Player Count | 1P Only, 2P Competitive, 2P Co-op | Random draw — 3 options |
+| Cost Per Play | 1 Quarter, 2 Quarters | Random draw — 2 options |
+
+**54 possible starting combinations.** Enough variety that runs feel different. Small enough that experienced players can learn every permutation.
+
+Pinball is not a starting option. It enters the pool only after reaching the Indie Pinball ending. You don't start there — you arrive there.
+
+### Natural vs Unusual Combos
+
+**Natural pairings** — steady curve, reliable behavior:
+- Fighter + Dual Joystick
+- Racer + Steering Wheel
+- Shooter + Light Gun
+
+**Unusual pairings** — novelty spike on launch, faster decay:
+- Fighter + Steering Wheel (vehicular combat)
+- Racer + Dual Joystick (top-down racer)
+- Shooter + Dual Joystick (twin-stick — actually strong)
+- Any + mismatched mechanic
+
+### Derived Stats
+
+Calculated from the combination — not drawn directly. Learning what combination produces what stats is the skill layer.
+
+| Genre | Pop Ceiling | Revenue | Lifespan | Novelty |
+|---|---|---|---|---|
+| Fighter | High | High | Short | High |
+| Racer | Medium | Medium | Medium | Medium |
+| Shooter | Medium | Medium | Long | Low |
+
+Pinball stats are not listed here — it is not a starting genre. When acquired mid-run its curve is distinct: low initial ceiling that appreciates over time as the nostalgia premium builds. The only machine type that gets more valuable as the years pass.
+
+### Machine Name Generation
+Every machine gets a procedurally generated title from genre-specific word pools. These are examples — the pools are larger than listed here and expand with unlocks.
+
+| Genre | Example Names |
+|---|---|
+| Fighter | IRON FIST, BATTLE CLASH, STEEL KOMBAT, DEATH ROUND, FURY CAGE |
+| Racer | TURBO CIRCUIT, SPEED DEMON, NITRO KING, APEX RUN, COAST RUNNER |
+| Shooter | STELLAR FORCE, BLASTER ZONE, COSMIC RAID, NOVA STRIKE, AFTERBURN |
+| Beat 'em Up | STREET JUSTICE, TWIN BRAWLERS, STEEL AXE, IRON KNUCKLE |
+| Platformer | JUMP HERO, SKY RUNNER, TOWER DASH, LEAP FORCE |
+| Puzzle | MIND LOCK, BLOCK STORM, CUBE FEVER, PATTERN KING |
+| Maze | DOT GOBBLER, CRAWLER, GRID RUNNER, MAZE FURY |
+| Sports | COURT CLASH, FIELD BRAWL, GOAL ZONE, SLAM COURT |
+| Horror | CRYPT RAIDER, DEAD ZONE, NIGHT CRAWLER, FEAR RUN |
+| 3D Fighter | POLYGON PUNCH, IRON KOMBAT, CHROME FIST, HARD EDGE |
+| 3D Racer | OVAL THUNDER, CHROME CIRCUIT, SPEED GRID, APEX 3D |
+| Dance | STEP FEVER, BEAT WAVE, RHYTHM STORM, FLOOR KING |
+| Pinball | SILVER BALL, TILT FEVER, PLUNGE, BUMPER KING |
+
+
 
 ---
 
-### UNLOCK PROGRESSION
+## 7. THE MACHINE FLEET
 
-Each completed run (win or lose) unlocks new entries into the starting pool. The pool never resets. This is the permanent progression layer.
+**This game is not about one machine.** One machine is week one. A good run ends with 4–8 machines on the floor, each at a different point in its curve.
 
-**Example unlocks:**
-- Survive 3 years → Puzzle genre enters pool
-- Reach any Tier 2 ending → Trackball mechanic enters pool
-- Go bankrupt → Easy difficulty curve enters pool (you learned the hard way)
-- Reach Indie Pinball ending → Pinball machine type enters pool
-- Complete all 22 endings → Full pool unlocked
+### The Machine Lifecycle
+```
+ACQUIRE → INSTALL → PEAK → MAINTAIN → DECISION POINT → RETIRE or UPGRADE
+```
 
-The garage always looks the same. The machine inside it is different every time.
+### Acquiring New Machines
 
+| Source | When Available | Notes |
+|---|---|---|
+| Classified Ads | Always | Cheap, worn, unknown history |
+| Distributor Catalog | After leaving garage | Better condition, known specs, higher price |
+| Event Cards | Random | Traveling salesman, competitor liquidation, new title shipment |
 
----
+### The Classified Ads Screen
+The classified ads screen is the machine acquisition UI for all purchases after the first. Accessed via the **payphone** — which must be purchased before it can be used. Until you own a payphone, you cannot buy additional machines. Always shows **3 listings at once**.
 
-## MINI-GAMES
+The payphone also generates small passive revenue from patron calls. Scales with foot traffic. Never a primary income source but meaningful when saving for a second machine.
 
-Every cabinet on your floor is a playable arcade game. Not just furniture — a game inside a game.
+The opening machine is the only exception to the 3-listing rule — one ad, no browsing, no alternatives.
 
----
-
-### ACCESS
-
-Click any cabinet on your floor. A menu appears:
+**Exception:** Players who have unlocked the *"First Listing"* achievement see 3 listings at the opening too. Same newspaper, same payphone cutaway, but now there are options before the clock even starts.
 
 ```
-[PLAY]  [UPGRADE]  [INFO]  [SELL]
+THE DAILY REGISTER  —  CLASSIFIEDS  —  PAGE 1
+
+┌───────────────────┐  ┌───────────────────┐  ┌───────────────────┐
+│ FIGHTER CABINET   │  │ RACER CABINET     │  │ SHOOTER CABINET   │
+│ Dual joystick     │  │ Steering wheel    │  │ Light gun         │
+│ 2P Competitive    │  │ 1P Only           │  │ 2P Co-op          │
+│ 1 quarter         │  │ 2 quarters        │  │ 1 quarter         │
+│                   │  │                   │  │                   │
+│ "Works good.      │  │ "Moving, must     │  │ "Son outgrew it.  │
+│ Some wear."       │  │ sell fast."       │  │ Good shape."      │
+│                   │  │                   │  │                   │
+│ $220              │  │ $185              │  │ $240              │
+└───────────────────┘  └───────────────────┘  └───────────────────┘
+
+                    [ FLIP TO NEXT PAGE → ]
 ```
 
-Select PLAY → mini-game launches full screen, Genesis aesthetic.
-ESC or game over → return to floor view.
+To flip to a new page, walk to the change machine and raid it — each raid pulls quarters to fund another call. No quarters, no flip. All listings are always Worn condition.
+
+### The Payphone Cutaway Sequence
+When you walk to the payphone and press Z, the ISO floor fades and a Genesis-style cutaway takes over.
+
+**Beat 1 — The Payphone**
+Over-the-shoulder, slightly below eye level. Receiver in hand. Wall behind the phone matches your current location. 16–32 colors maximum — true Genesis constraint. Bold shapes, deliberate dithering, no gradients. The payphone never changes across locations. Same scratched metal. Same dangling cord. Familiar in an unfamiliar room. You never see your character's face. These are your hands. This is you.
+
+The wall behind changes with every location:
+- **Garage** — corrugated metal, corner of roll-up door, bare bulb shadow
+- **Storefront** — painted drywall, edge of exterior sign through window
+- **Mall** — beige tile, fluorescent strip, warmer palette
+- **Barcade** — exposed brick, neon edge-glow bleeding in
+- **Bowling Alley** — wood panel, rental shoe rack at the edge
+
+**Beat 2 — Browse**
+Three listings readable on the newspaper pinned next to the phone. Select one to buy or decide to flip.
+
+**Beat 3 — The Raid**
+Newspaper sets down. Receiver drops — doesn't hang up cleanly, just falls and dangles. Cord swings. Camera holds on the dangling phone and empty frame.
+
+**Beat 4 — Off Screen**
+Character gone. Phone hanging. Then from off-screen: metal on metal, coins scattering, a frustrated grunt. The change machine is getting it.
+
+**Beat 5 — Return**
+Footsteps back. Hands reappear. Quarter drops in — that clink. Newspaper flips to a new page. Three new ads.
+
+**The Sound Design** — eight seconds, sold entirely by audio:
+```
+newspaper sets down → phone drops off receiver → cord sways
+footsteps recede → silence → CLANG → coins cascade → grunt
+footsteps return → quarter clinks into slot → dial tone → page turn
+```
+
+### Portfolio Management
+A healthy floor has machines at different curve stages:
+- Machine 1 (year 2): past peak, still earning, on borrowed time
+- Machine 2 (month 4): at peak, maximum revenue
+- Machine 3 (week 2): novelty phase, building audience
+- Machine 4 (year 3): slow burn, deeply loyal regulars
+
+### Demographic Competition
+Different machines attract different patrons. Two fighters splits the fighting crowd. A pinball machine brings older patrons who ignore video games. A platformer brings kids who wander. The best floors are complementary — different genres, different demographics, different curve phases.
+
+### Selling and Retiring
+
+| Method | Return | Time |
+|---|---|---|
+| Sell to distributor | 40–60% of purchase price | Immediate |
+| Sell via classified ad | 50–70% | 2 weeks |
+| Scrap for parts | 20% | Immediate |
 
 ---
 
-### AFTER HOURS RULE
+## 8. MACHINE UPGRADES
 
-Playing your own machine happens after hours. The floor goes dark. A single spotlight on the cabinet. Patrons are gone. It's your time.
+Upgrades are bolted onto specific machines. Each is visible on the iso floor — the machine physically changes. Four tiers.
 
-No revenue impact. No queue disruption. Pure play.
+### Tier 1 — Early Game (Weeks 1–8)
+| Upgrade | Effect |
+|---|---|
+| Continue Credits | Players insert another quarter instead of game over. Extends revenue tail. |
+| High Score Initials | 3-letter entry. Creates competition, loyalty, return visits. |
+| Speaker Upgrade | Draws patrons from across the floor. |
+| Joystick Upgrade Kit | Reduces control wear events. |
+| Coin Mechanism Upgrade | Reduces coin jam events. |
+| Plexi Screen Guard | Reduces screen damage events. |
+
+### Tier 2 — Mid Game (Months 3–6)
+| Upgrade | Effect | Restriction |
+|---|---|---|
+| 2P Kit | Second control panel. Doubles potential revenue. Cabinet widens. | Fighter, Shooter, Racer |
+| Force Feedback Steering Wheel | Patrons feel the road. Highest novelty bump of any upgrade. | Racer |
+| Screen Upgrade | Better spectator visibility. Crowds gather more easily. | All |
+| Marquee Light Upgrade | Neon marquee. Contributes to street foot traffic. | All |
+| Subwoofer Cabinet | Physical bass. "Feel it in your chest" event possible. | All |
+| Haptic Flipper Handles | Loyalty boost for pinball regulars. | Pinball |
+| Tournament Bracket Board | Enables tournament events. Changes patron behavior. | Fighter, Sports |
+
+### Tier 3 — Late Game (Year 2+)
+| Upgrade | Effect | Restriction |
+|---|---|---|
+| 4P Kit | Massive footprint. Creates spectacle. | Fighter, Sports |
+| Sit-Down Cockpit Conversion | Full sit-down cabinet. Creates spectator queues. | Racer |
+| Hydraulic Motion Platform | The machine moves. Only upgrade generating spectator revenue. | Racer |
+| Leaderboard Display | Wall-mounted live scores. Amplifies competition across floor. | All |
+| Side-by-Side Mirror Cabinet | Linked competitive cabinets. Rivalry events. | Fighter, Shooter |
+| Token System Conversion | Branded tokens. Locks spending into your arcade. | All |
+| Headphone Jack | Unlocks Focused Loner patron type. Stays twice as long. | All |
+
+### Tier 4 — Rare / Special (Unlock or Event-Triggered)
+| Upgrade | How to Get | Effect |
+|---|---|---|
+| Prototype Board Swap | Event card offer | Modified logic board. Cult potential. Health code risk. |
+| Backlit Side Art | Reach any Tier 1 ending | Lit art panels. Pure prestige. |
+| VS Marquee | Win a tournament | Flashing competitive display. |
+| Custom Cabinet Paint | Achievement unlock | Changes cabinet color scheme. |
+
+### Notable Interactions
+- **Continue Credits + Punishing Difficulty** — Fast credit burn becomes a revenue engine. Players pay to not lose.
+- **Force Feedback + Sit-Down Cockpit** — Stack both on a Racer. Most immersive machine possible. Long queues.
+- **Hydraulic Motion Platform** — Only upgrade generating revenue from non-players. A rising tide.
+- **Prototype Board Swap** — The most interesting upgrade. Slightly shady. Cult following. Real consequences.
 
 ---
 
-### MINI-GAME INHERITANCE
+## 9. OPERATIONAL PURCHASES & SOFT MECHANICS
 
-The mini-game inherits the machine's drawn characteristics:
-- **Difficulty Curve** affects enemy AI, obstacle density, pacing
-- **Cabinet Condition** affects visual glitches (Worn = occasional screen flicker mid-game)
-- **Cost Per Play** affects starting lives (1 quarter = 3 lives, 2 quarters = 2 lives — you're playing for keeps)
+Three categories of non-machine purchases.
 
-Same base game. Different machine characteristics. Different experience.
+### Category 1 — Operational
+*Directly affects revenue, compliance, or survival.*
+
+| Item | Effect | Availability |
+|---|---|---|
+| Change Machine | **First purchase priority.** Without it patrons can't convert bills to quarters and revenue stalls. Converts collected coins into patron-ready quarters — the critical link between cabinet revenue and continued play. Raid it to fund a classifieds page flip, but drain it and the floor goes quiet. | Garage+ |
+| ATM | Raises spending ceiling. Patrons stay longer. | Storefront+ |
+| Cash Register / Safe | Reduces theft events. | Storefront+ |
+| Coin Counter | Reduces end-of-week accounting losses. | Garage+ |
+| Restroom | Required for certain tier upgrades. Longer patron stays. | Mall+ |
+| Air Conditioning | Summer comfort. Patron penalty without it. | Storefront+ |
+| Security Camera | Reduces theft and vandalism. | Storefront+ |
+| Exterior Neon Sign | Increases street foot traffic conversion. | Storefront+ |
+| Phone Line | Required for tournaments and some event cards. | Garage+ |
+| Payphone (wall-mounted) | **Must be purchased before you can buy additional machines.** Opens the classifieds screen via the payphone cutaway. Also generates small passive revenue — patrons use it. Scales with foot traffic. Moves with you to every location, changing skin each time. The most important early purchase after the change machine. | Garage+ |
+
+### Category 2 — Soft Mechanical
+*Aesthetic purchases with real indirect effects.*
+
+| Item | Effect |
+|---|---|
+| Old Sofa (starting item) | Medium dwell time boost |
+| Decent Couch | Better dwell time |
+| Nice Sectional | Significant dwell time. Unlocks lounge crowd patron type. |
+| Bar Stools | Pairs with bar tables. Enables standing-around culture. |
+| Bar Top Tables (starting item) | Medium dwell boost |
+| Better Lighting | Foot traffic conversion + patron mood |
+| Carpet Upgrade | Patron mood. Reduces noise complaints. |
+| Bulletin Board | Enables community events. Small loyalty boost. |
+| High Score Display (wall) | Popularity boost. Patron competition behavior. |
+| Trophy Case | Unlocks tournament events. | 
+
+### Category 3 — Pure Cosmetic
+*Player expression. Earned through achievements, not purchased with money.*
+
+- Wall paint colors
+- Floor carpet patterns
+- Ceiling tiles and trim
+- Fake arcade game posters (poster wall unlocks)
+- Custom marquee fonts
+- Neon sign colors and styles
+- Plants, clocks, lava lamps, seasonal decorations
+- Patron sprite costumes
+- Staff sprites
+
+**Cosmetics are biography, not budget.** They unlock via achievements and endings. Your arcade looks the way it does because of what you've survived.
 
 ---
 
-### THE THREE STARTING MINI-GAMES
+## 10. DECAY, EVENTS & THE RIVAL
 
-**FIGHTER — (e.g. IRON FIST)**
-1v1 fighting game. Health bars. Three rounds.
-- Controls: arrows = move/crouch/jump, Z = punch, X = kick, Z+X = special
-- Enemy AI has three skill tiers, unlocked progressively
-- Win condition: win 2 of 3 rounds across 3 matches
-- Run time: under 3 minutes
+### The Popularity Curve
+Every machine follows the same arc: novelty → growth → peak → decay. The shape of the curve is determined by genre, mechanic, difficulty, and upgrades. Your job is to read where each machine is and act accordingly.
 
-**RACER — (e.g. TURBO CIRCUIT)**
-Pseudo-3D forward-scrolling road racer.
-- Controls: left/right arrows = steer, Z = accelerate, X = brake
-- Avoid oncoming traffic and road hazards
-- Three laps, lap times are your score
-- Win condition: finish all three laps without totaling the car
+### Decay Events
+Decay happens as gut-punch events, not slow erosion:
+- A newer machine opens across town
+- A kid figures out the cheat code and word spreads
+- Cabinet breaks down on a Saturday night
+- A bad review in the local paper
+- The rival makes a move
 
-**SHOOTER — (e.g. STELLAR FORCE)**
-Top-down wave shooter. Space Invaders DNA.
-- Controls: arrows = move, Z = fire, X = bomb (limited)
-- Five enemy waves plus a boss
-- Win condition: clear all five waves
+Every event is a decision moment. You have to physically get there and act.
+
+### Event Indicators
+| Icon | Color | Meaning |
+|---|---|---|
+| ! | Pink | Machine broken |
+| ¢ | Yellow | Coin jam |
+| $ | Orange | Change machine empty |
+| ★ | Gold | VIP patron — intercept now |
+| ‼ | Red | Rowdy patron |
+
+### The Coin Collection Loop
+
+Coins accumulate in each cabinet's tray as patrons play. You physically collect them by walking to the cabinet and pressing Z. Those coins go into your pocket as spendable revenue.
+
+The change machine converts your collected coins into patron-ready quarters. Walk your coins to the change machine and deposit them to keep the floor running. If the change machine runs dry, patrons arrive, find no quarters, and leave.
+
+Each cabinet has a **coin tray indicator** on its front face — visible at a glance from across the floor:
+- **Green** — tray empty, machine accepting coins normally
+- **Yellow** — tray filling, collect soon
+- **Red** — tray full, machine has stopped accepting coins
+
+The change machine has a **stock meter** on its side showing current quarter supply.
+
+Early game with one machine this is simple. Four machines in a busy storefront and you're running laps — collecting from machine 2 while machine 4's tray fills, the change machine is getting low, and machine 1 has a coin jam flashing at you. You are the physical link in the chain. You can only be in one place at a time.
+
+### The Rival
+One named rival. Personal. They don't just compete — they make offers.
+
+The offer climbs as your valuation grows, peaks, then starts to slip. At the peak:
+```
+RIVAL HAS MADE THEIR BEST OFFER.
+[ACCEPT]  [DECLINE]
+```
+Take it clean = celebratory ending. Hold too long = lowball. Hold even longer = they outlast you.
+
+Accepting a rival sub-lease during a location transition locks out the Indie Pinball, Standalone Arcade, and Barcade endings for that run.
 
 ---
 
-### HIGH SCORES
+## 11. DIFFICULTY, CONDITION & UNLOCK PROGRESSION
 
-High scores persist for the duration of a run. Beat your own score on a machine = secondary unlock tier. High scores reset with each new run — another thing you're building from scratch.
+### The Principle
+The starting machine is **always Worn** — a used cabinet from a classified ad. No draw, no unlock, no exception. It works fine but has a maintenance clock running from day one. You can always buy another machine during the run, so the starting draw is never a death sentence. Every player starts on equal footing.
 
-A wall-mounted High Score Board (purchasable upgrade) displays the top 5 scores per machine on the arcade floor. Patrons react to it.
+Difficulty is fixed at Escalating for new players and unlocks through progression. By the time a harsher difficulty enters the pool, the player has earned the skill to handle it.
+
+### Condition for Purchased Machines
+Condition applies to machines you *buy during the run*. As you unlock new sources and progress further, better (and worse) conditions become available.
+
+| Condition | How to Get | Effect |
+|---|---|---|
+| **Worn** | Always — classified ads | Baseline. Occasional maintenance. |
+| **Good** | Distributor catalog (unlocks at Storefront) | Fewer breakdowns. Higher cost. |
+| **Mint** | Reach any Tier 1 ending — unlocks in catalog | No breakdowns first season. Premium aura. |
+| **Damaged** | Complete 10 runs — appears in classified ads | Frequent breakdowns. Cheap. High risk. |
+| **Barely Working** | Reach Indie Pinball ending — event card only | Cult of the broken machine potential. |
+
+### Difficulty Unlock Track
+| Difficulty | Unlock Condition | Effect |
+|---|---|---|
+| **Escalating** | Always | Starts easy, ramps. Teaches the arc. |
+| **Fair** | Survive 3 years in any run | Best word of mouth. Steady. |
+| **Easy** | Go bankrupt once | Long sessions. Low revenue. You learned. |
+| **Punishing** | Beat any mini-game on hard | Fast credit burn. High ceiling. Short tail. |
+| **Random** | Complete all 22 endings | Chaos mode. Pure variance. |
+
+### Ending Unlocks
+Each completed run (win or lose) unlocks new entries into the starting pool:
+
+| Milestone | Unlock |
+|---|---|
+| Survive 3 years | Puzzle genre enters pool |
+| Reach any Tier 2 ending | Trackball mechanic enters pool |
+| Go bankrupt | Easy difficulty enters pool |
+| Reach Indie Pinball ending | Pinball enters starting genre pool |
+| Earn "First Listing" achievement | Opening classified ad shows 3 listings |
+| Complete all 22 endings | Full pool unlocked |
+
+### Meta Progression — Tools
+Tools upgraded in previous runs carry a shadow into the next run. Not full power — a head start. The wrench is a little faster. The cash roll holds a little more. The arcade always burns. The owner gets better.
 
 ---
 
-### UNLOCK REWARDS
+## 12. MINI-GAMES
 
+Every cabinet on your floor is a playable arcade game.
+
+### Access
+Walk up to a cabinet after hours → press Z → mini-game launches full screen. The floor goes dark. A single spotlight on the cabinet. No revenue impact. No queue disruption.
+
+### Inheritance
+The mini-game inherits the machine's characteristics:
+- Difficulty Curve affects AI and pacing
+- Cabinet Condition causes screen flicker on Worn machines
+- Cost Per Play sets starting lives (1 quarter = 3 lives, 2 quarters = 2 lives)
+
+### The Three Starting Mini-Games
+
+**FIGHTER** — 1v1. Health bars. Three rounds. Z=punch, X=kick, arrows=move/block.
+**RACER** — Pseudo-3D forward-scroll. Steer, avoid traffic, three laps.
+**SHOOTER** — Top-down wave shooter. Five waves plus a boss.
+
+### Pinball Mini-Game — Unlocked
+Pinball is not a starting mini-game. It becomes playable only after acquiring a pinball machine mid-run. Full playfield — flippers, bumpers, targets, multiball. The most complex mini-game to build and the most satisfying to beat. Beating it is required to reach the Indie Pinball Arcade ending.
+
+### Mini-Game Unlocks
 | Achievement | Unlock |
 |---|---|
-| Beat Fighter (any difficulty) | Competitive patron type enters spawn pool |
-| Beat Fighter on hard AI | 2P Fighter mini-game (pass-and-play at one keyboard) |
-| Beat Racer under par time | Patron movement speed upgrade purchasable |
-| Beat Shooter all 5 waves | New poster unlocks on poster wall |
-| Set high score on any game | Unique cabinet skin for that genre |
-| Beat all 3 starting mini-games | "Arcade Champion" achievement + special patron costume |
-| Beat any game on first attempt | "Natural" achievement |
-| Lose all lives on first screen | "Humbling" achievement (still unlocks something small) |
-| Beat a game without losing a life | "Free Play" achievement |
+| Beat Fighter | Competitive patron type enters spawn pool |
+| Beat Fighter on hard | 2P Fighter pass-and-play unlocked |
+| Beat Racer under par | Patron movement speed upgrade purchasable |
+| Beat Shooter all waves | New poster unlocks on poster wall |
+| High score on any game | Unique cabinet skin for that genre |
+| Beat all 3 starting games (Fighter, Racer, Shooter) | "Arcade Champion" achievement + patron costume |
+| Beat the pinball mini-game | "Silver Ball" achievement + pinball cabinet skin |
+| Beat any game first try | "Natural" achievement |
+| Lose all lives on screen 1 | "Humbling" achievement (still unlocks something) |
 
 ---
 
-### THE FEELING
+## 13. ACHIEVEMENTS & BADGES
 
-**Losing** should feel like being a kid in 1981. You lasted 45 seconds. Screen flickers. GAME OVER in blocky red type. INSERT COIN. The game is slightly mocking.
+### Ending-Based Achievements
+Reach each of the 22 endings. Each unlocks cosmetics and new starting pool entries.
 
-**Winning** should feel like the whole arcade saw it. Screen flash. Score tally. A moment of silence before the floor fades back in. Your high score is now on the board.
+### Playstyle Achievements
 
----
+**Genre Purist**
+- Only racing games all run — *"Pole Position"*
+- Only fighters — *"Final Round"*
+- Only puzzle games — *"Big Brain"*
+- Never repeat a genre — *"Eclectic"*
 
-### FUTURE MINI-GAMES (unlock via pool expansion)
+**Business Behavior**
+- Never accept the rival's offer — *"Never Sold Out"*
+- Accept the very first offer — *"Pragmatist"*
+- Reach Tier 1 without ever leaving the original storefront
+- Go bankrupt three runs in a row — *"Glutton for Punishment"*
 
-As new genres enter the starting pool through progression, their mini-games become playable:
+**Machine Behavior**
+- Never add a single upgrade — *"Pure"*
+- Stack every upgrade on one machine — *"Frankenstein"*
+- Only ever own one machine — *"Minimalist"*
 
-- Puzzle → sliding tile or falling block game
-- Platformer → single-screen platformer, flag at top
-- Sports → one-on-one basketball or penalty kicks
-- Horror → top-down maze escape, limited vision
-- Maze → classic dot-eating maze (one obvious inspiration)
-- Pinball → full playable pinball table (Indie Pinball ending requirement)
+**Classified Ads**
+- Reach Tier 1 without flipping the classifieds page once all run — *"First Listing"* — unlocks 3 starting listings on all future runs
+- Flip the page 10 times on a single purchase — *"Tire Kicker"*
+- Buy a second machine before week 4 — *"The Early Bird"*
+- Buy every machine from page 1 listings across an entire run — *"No Hesitation"*
+- Reach a Tier 1 ending having raided the change machine at least once — *"Bootstrapped"*
+- Complete a full run never raiding the change machine — *"Dignity"*
 
-The Pinball mini-game is the most complex to build and the hardest to beat. Reaching the Indie Pinball ending without having beaten your own pinball machine first is considered the true prestige run.
+**Meta**
+- Reach all 22 endings — *"I've Seen Everything"*
+- Name your arcade the same thing 10 runs in a row
 
+### Badge: ONE FOR THE AGES
+**Condition:** Reach any Tier 1 ending using only the starting machine. No second machine. No replacements. Same cabinet from the classified ad in week 1 to closing night.
 
----
+Genre variants: Fighter (red), Racer (blue), Shooter (green), Pinball (gold — hardest).
 
-## PINBALL AS A STARTING MACHINE
+The Pinball variant is the prestige badge. One machine. Ten years. Nothing else.
 
-Pinball is a first-class starting option alongside Fighter, Racer, and Shooter. It is mechanically distinct from video game cabinets in almost every way.
+### Badge: STOCK
+**Condition:** Reach any Tier 1 ending with the starting machine and zero upgrades purchased.
 
----
+Badge art: a battered cabinet with tape over a crack. Still glowing.
 
-### WHY THIS MATTERS NARRATIVELY
+### The Unnamed Achievement
+One for the Ages + Pinball + Stock + Indie Pinball ending.
 
-It's 1981. Pinball isn't retro yet — it's the incumbent. Video games are the challenger. Starting with a pinball machine means you're the old guard trying to survive the digital wave. That's a different emotional arc than any video game start.
-
-Running a pinball-only campaign and reaching the Indie Pinball Arcade ending is the game's truest story. You started with what was already fading, believed in it anyway, and turned it into a destination.
-
----
-
-### PINBALL MECHANICAL DIFFERENCES
-
-**Mechanic is always Flippers.** No draw needed. If Pinball is drawn as genre, mechanic is auto-assigned.
-
-**Cabinet is visually distinct.** Horizontal playfield, glass top, score reels or early LED display. In iso view: wider footprint, lower profile than a video cabinet. Requires its own sprite.
-
-**Revenue curve** — long and flat. Slower revenue than video games at peak, but almost no floor. Pinball regulars are devoted. They don't stop coming.
-
-**Maintenance** — physical parts fail more frequently but less catastrophically. Bumpers, flippers, solenoids. Small recurring costs rather than occasional large breakdowns. Budget management feels different.
-
-**Player Count draw** — 1P Only or 2P Competitive (taking turns, classic pinball). No co-op draw available for pinball.
-
-**Patron behavior** — Pinball patrons are older on average. They arrive slower, stay longer, and are significantly more loyal than video game patrons. Losing a pinball regular hurts more than losing a video game patron.
-
-**Novelty modifier** — In 1981, pinball gets no novelty bonus (it's established). By 1985, it gets a nostalgia modifier as video games dominate. By 1989, the nostalgia premium is significant. Pinball machines appreciate in perceived value as the years pass — the only machine type that does this.
-
----
-
-### THE PINBALL CAMPAIGN
-
-A pure pinball run requires a completely different strategy:
-
-- Resist buying video game cabinets (they dilute the identity)
-- Invest heavily in maintenance budget
-- Curate: every pinball machine you add should be a specific title choice
-- Lean into the older demographic — they spend more per visit
-- Ignore the rival's pressure to modernize — that's the trap
-- Survive long enough for the nostalgia premium to kick in
-- Reach Indie Pinball Arcade
-
-This is the hardest ending to reach from a pinball start. It's also the only ending that feels *inevitable* if you play it right.
+No name. No achievement screen. The players who do it will know.
 
 ---
 
-### PINBALL MINI-GAME
+## 14. AESTHETIC & PLATFORM
 
-The most complex mini-game to build but the most satisfying. Full playfield with:
-- Ball physics (gravity, bounces, spin)
-- Flippers (left/right Z and X keys)
-- Bumpers, targets, ramps, drains
-- Multiball event (rare, requires specific target sequence)
-- High score table that persists through the run
+**Visual:** SEGA Genesis — dark palette, neon-on-black, chunky pixels, isometric projection
+**Audio:** FM synthesis via Web Audio API. Each cabinet has a generated chiptune. The audio is the popularity meter.
+**Font:** Press Start 2P throughout
+**UI:** Genesis RPG menus — bordered dialogue boxes, cursor click, zero friction on restart
+**Platform:** Browser, single HTML file
+**Canvas:** 640×480
 
-Beating the pinball mini-game is required to reach the Indie Pinball Arcade ending. Reaching that ending without having beaten it first is considered the true prestige run.
+### The Garage (Level 1)
+- Left wall: open roll-up garage door. Night sky outside. Driveway in concrete (#D2D1CD) visible through opening.
+- Right wall: fake arcade game posters. Locked posters show COMING SOON.
+- Floor: dark purple checkerboard carpet
+- Furniture: old sofa, two bar-top tables
+- Ceiling: warm strip lighting above poster wall
+- Starting purchases needed: change machine, then payphone — nothing operational is free
 
 ---
 
-### STARTING POOL WITH PINBALL
+## 15. BUILD ORDER
 
-| Genre Draw | Mechanic | Player Count Draw | Cost Draw | Combinations |
-|---|---|---|---|---|
-| Fighter | Dual Joystick, Steering Wheel, or Light Gun | 1P / 2P Comp / 2P Co-op | 1Q / 2Q | 18 |
-| Racer | Dual Joystick, Steering Wheel, or Light Gun | 1P / 2P Comp / 2P Co-op | 1Q / 2Q | 18 |
-| Shooter | Dual Joystick, Steering Wheel, or Light Gun | 1P / 2P Comp / 2P Co-op | 1Q / 2Q | 18 |
-| Pinball | Flippers (auto) | 1P / 2P Comp | 1Q / 2Q | 4 |
-| **Total** | | | | **58** |
+- [x] Title screen
+- [x] Name entry
+- [x] Isometric garage floor
+- [x] Patron AI and queue system
+- [x] Owner character with WASD movement
+- [x] Interaction system (Z to act)
+- [x] Event indicators
+- [x] Starting cash ($85)
+- [x] Change machine object
+- [ ] Classified ad intro screen
+- [ ] Machine stats card
+- [ ] Random machine draw (genre/mechanic/players/cost)
+- [ ] Popularity curve and decay
+- [ ] First event card
+- [ ] Purchase menu (change machine, upgrades)
+- [ ] Second machine acquisition
+- [ ] Location transition cards
+- [ ] Mini-game: Fighter
+- [ ] Mini-game: Racer
+- [ ] Mini-game: Shooter
+- [ ] Mini-game: Pinball (unlock — requires pinball machine acquisition)
+- [ ] Rival system and offer mechanic
+- [ ] Ending screens
+- [ ] Sound — FM chiptunes
+- [ ] Meta progression and unlocks
 
-58 starting combinations. Learnable. Varied. Every new player will encounter something different.
+---
+
+## 16. STATUS
+
+> Active development. Core loop playable. Design document complete.
+> Current build: v0.6 — YOU ARE IN THE ROOM
+
+---
+
+*Quarter Drain is a game about arcades made to feel like one.*
