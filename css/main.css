@@ -1,1 +1,66 @@
+* { margin: 0; padding: 0; box-sizing: border-box; }
 
+body {
+  background: radial-gradient(ellipse at center, #0d0520 0%, #000 70%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  font-family: 'Press Start 2P', monospace;
+  overflow: hidden;
+}
+
+#game-wrapper {
+  position: relative;
+  width: 640px;
+  user-select: none;
+}
+
+#marquee {
+  background: #08031a;
+  border: 3px solid #ff006e;
+  border-bottom: none;
+  padding: 9px 16px;
+  text-align: center;
+  color: #ff006e;
+  font-size: 13px;
+  letter-spacing: 5px;
+  text-shadow: 0 0 8px #ff006e, 0 0 20px #ff006e88;
+  display: none;
+}
+
+#gameCanvas {
+  display: block;
+  border: 3px solid #ff006e;
+  box-shadow: 0 0 20px #ff006e55, 0 0 60px #ff006e22;
+  image-rendering: pixelated;
+  cursor: default;
+}
+
+#hud {
+  background: #08031a;
+  border: 3px solid #ff006e;
+  border-top: none;
+  padding: 7px 16px;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 8px;
+  letter-spacing: 1px;
+}
+
+#hud-money { color: #00ff9f; }
+#hud-date  { color: #ffd600; }
+#hud-pop   { color: #00e5ff; }
+
+#scanlines {
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(0,0,0,0.1) 3px, rgba(0,0,0,0.1) 4px
+  );
+  pointer-events: none;
+  z-index: 10;
+}
