@@ -480,6 +480,126 @@ Different machines attract different patrons. Two fighters splits the fighting c
 
 ---
 
+## 7B. MACHINE CLASSIFICATIONS
+
+Every machine in the classifieds — and every machine you ever own — belongs to one of four classifications. The classification is visible as a color on the listing border and on the stats card. Players learn to read the color before they read the ad.
+
+### The Four Classifications
+
+| Classification | Color | Rarity | What It Means |
+|---|---|---|---|
+| **Standard** | White | Always available | Regular pool. What's in the classifieds every week. The worn cabinet Ray wanted gone. |
+| **Surplus** | Green | Occasional | Unusual find. Better than average. Shows up when conditions are right. |
+| **Storied** | Blue | Rare — once per run if conditions met | Known machine. Has a history. People in the industry recognize the name. |
+| **Unique** | Gold | Once per game universe | One exists. Has a name. Has a past. Arrives via handwritten ad. |
+
+### The Descriptors
+
+Descriptors appear in the ad copy and on the stats card. They explain *why* a machine has its classification — the backstory behind the listing.
+
+| Descriptor | Lives In | Meaning |
+|---|---|---|
+| Floor Model | Standard / Surplus | Was a display unit. Never heavily played. Better condition than its age suggests. |
+| Last Season | Standard | Last year's popular machine. Cheap now. Still has a tail. |
+| Classic | Surplus / Storied | Established title. Proven track record. Patrons recognize it immediately. |
+| Vintage | Storied / Unique | Pre-video game era or early generation. Appreciates over time. Only machine type that does. |
+| Refurbished | Surplus | Beat up but professionally restored. Better than its condition suggests. |
+| One Owner | Surplus / Storied | Came from one place. Clean history. No mystery maintenance problems. |
+| Toured | Storied | Went through multiple arcades. Has regulars in other cities who'll travel for it. |
+| Championship | Storied | Used in a real competitive event. Has the bracket marks to prove it. Tournament events automatic. |
+| Import | Surplus / Storied | Never officially distributed locally. Unusual mechanic. Short novelty window, very long tail. |
+| Prototype | Storied / Unique | Never went into production. You shouldn't have this. Nobody knows what genre it is until patrons play it. |
+
+### How Classifications Appear In The Paper
+
+**Standard listing** — normal ad, regular column, white border, BLAHBLAH filler around it.
+
+**Surplus listing** — same newspaper, green-bordered box, slightly different seller voice. Noticeable but not screaming.
+
+**Storied listing** — its own page when you flip. Yellower paper. One ad, centered. No other listings on the page. You know something is different before you read a word.
+
+**Unique listing** — same as Storied but handwritten. Not typeset. Someone wrote this by hand and submitted it to the classifieds. That detail tells you everything.
+
+### Rarity In The Pool
+
+- Standard listings appear every page
+- Surplus listings appear roughly 1 in every 8 pages flipped
+- Storied listings appear at most once per run — only if conditions are met
+- Unique listings appear at most once per run — only after specific criteria AND enough pages flipped that the universe decides you've been looking hard enough
+
+Grinding the classifieds occasionally surfaces something extraordinary. The Tire Kicker achievement — flip 10 times in one session — is not always wasted.
+
+### Example Listings By Classification
+
+**Standard / Last Season**
+```
+FOR SALE: TURBO CIRCUIT cabinet.
+Steering wheel. Good condition.
+Upgrading to newer model.
+$195. Call Mike. 555-0181
+```
+
+**Surplus / Floor Model**
+```
+FLOOR MODEL: COAST RUNNER cabinet.
+Steering wheel. Showroom condition.
+Distributor clearing display stock.
+$290 firm. Western Dist. Co. 555-0144
+```
+
+**Storied / Championship**
+```
+CHAMPIONSHIP CABINET: IRON FIST.
+Used in the 1989 Regional Finals.
+Bracket still taped inside the coin door.
+Serious inquiries only. $580.
+Call Dennis. 555-0163
+```
+
+**Unique**
+```
+[handwritten]
+Heard you collect these.
+This one's been waiting.
+No price listed. Come see it.
+— R.
+```
+
+### Specific Notable Machines
+
+These are named machines with fixed histories that can appear in runs under specific conditions. All arrive via the classifieds.
+
+**Surplus / Storied Pool**
+- *The Workhorse* — A fighter that's been in three different arcades. Barely Working condition but pre-built cult following. Patrons who played it elsewhere recognize it and immediately queue.
+- *The Import* — A Japanese shooter. Mechanic no one has seen locally. Short novelty window, longest tail of any shooter.
+- *The Prototype* — Never went into production. Unknown genre until patrons play it.
+- *The Championship Cabinet* — Tournament fighter. Bracket still inside. Tournament events automatic — no bracket board upgrade needed.
+- *The Boardwalk King* — Sit-down racer from a pier. Salt damage on cabinet, pristine screen. Seasonal nostalgia premium — peaks every summer.
+- *The Last One* — Final unit of a discontinued machine. Mint condition. Appreciates every year. Rival offer jumps if you own it.
+- *Two Pinball + Vintage Unlock* — Own two pinball machines of sufficient quality simultaneously and a Vintage table appears in the pool. Pre-video game era, purely mechanical, different patron type entirely. Anchor of the Indie Pinball ending.
+
+**Unique Pool**
+- *RAY'S ORIGINAL* — The machine from the opening ad. Sold or scrapped it early + reach reputation threshold = Ray's handwritten ad appears. No specs. Just: *"I heard you've been doing well. I still have the receipt. — Ray"*
+- *THE WIDOWMAKER* — Notorious punishing fighter. Documented trail of broken joysticks. Word of mouth is massive. Controversy risk is permanent. Arrives during The Boom if you have a fighter on your floor.
+- *CABINET ZERO* — First arcade cabinet ever placed in your city. Storage unit for 15 years. Whoever owns it when the run ends gets a special ending variant regardless of location tier. Appears after 10 completed runs.
+
+### Unlock Conditions
+
+| Machine | Condition to Appear |
+|---|---|
+| The Workhorse | Any machine at Barely Working condition survives 1+ year |
+| The Import | Own a shooter for 2+ years |
+| The Prototype | Flip classifieds 5+ times in one session |
+| The Championship Cabinet | Host a tournament event |
+| The Boardwalk King | Reach the Boardwalk location |
+| The Last One | Reach any Tier 1 ending in a previous run |
+| Vintage Pinball Table | Own 2+ pinball machines simultaneously |
+| Ray's Original | Sold or scrapped starting machine + reach reputation threshold |
+| The Widowmaker | Own a fighter during The Boom era |
+| Cabinet Zero | Complete 10 total runs |
+
+---
+
 ## 8. MACHINE UPGRADES
 
 Upgrades are bolted onto specific machines. Each is visible on the iso floor — the machine physically changes. Four tiers.
