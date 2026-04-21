@@ -49,13 +49,17 @@ function draw() {
 }
 
 function updateHUD() {
-  document.getElementById('hud-money').textContent = String(state.money).padStart(5, '0');
+  document.getElementById('hud-money').textContent = '$' + state.money.toFixed(0).padStart(4,'0');
   document.getElementById('hud-pop').textContent   = state.popularity;
   document.getElementById('hud-date').textContent  = `WK ${state.week} \u2014 ${state.year}`;
 }
 
 function launchGame() {
   state.screen = 'GAME';
+  // Temp: give player a stocked change machine so coin loop works immediately
+  // TODO: replace with purchase system
+  changeMachine.owned   = true;
+  changeMachine.stock   = 40;
   document.getElementById('marquee').style.display    = 'block';
   document.getElementById('marquee-name').textContent = state.arcadeName;
   document.getElementById('hud').style.display        = 'flex';
