@@ -38,8 +38,8 @@ const cabinetState = {
 
 // ── CHANGE MACHINE STATE ────────────────────────────────────
 const changeMachine = {
-  owned:      false,    // player hasn't bought it yet
-  stock:      0,        // current quarters (0–40 for Tier 1)
+  owned:      true,     // TODO: set false when purchase system is built
+  stock:      40,       // pre-stocked for now
   stockMax:   40,       // Tier 1 capacity
   tier:       1,
 };
@@ -61,14 +61,10 @@ const QUEUE_SPOTS = [
 const slots = { play: [null, null], queue: [null, null, null, null] };
 
 function assignSlot(p) {
-  // Can't play without change machine stocked
-  if (!changeMachine.owned || changeMachine.stock <= 0) {
-    return false;
-  }
-  // Can't play if tray is full
-  if (!cabinetState.accepting) {
-    return false;
-  }
+  // No quarters = no play
+  if (changeMachine.stock <= 0) return false;
+  // Tray full = machine not accepting
+  if (!cabinetState.accepting) return false;
   const maxPlayers = MACHINE ? MACHINE.players : 2;
   for (let i = 0; i < maxPlayers; i++) {
     if (!slots.play[i]) {
