@@ -1,5 +1,5 @@
 // ============================================================
-//  entities/cabinet.js — Cabinet isometric draw
+//  entities/cabinet.js — Cabinet draw + coin tray indicator
 // ============================================================
 
 function drawCabinet() {
@@ -29,7 +29,13 @@ function drawCabinet() {
   ctx.fillStyle = C.green; ctx.shadowColor = C.green; ctx.shadowBlur = 6;
   ctx.font = '5px "Press Start 2P"'; ctx.textAlign = 'center';
   ctx.fillText(MACHINE.name.substring(0, 8), smx, smy - 4);
-  ctx.fillText('INSERT\xA2', smx, smy + 5);
+  // Show INSERT¢ only when machine is accepting coins
+  if (cabinetState.accepting && changeMachine.stock > 0) {
+    ctx.fillText('INSERT\xA2', smx, smy + 5);
+  } else {
+    ctx.fillStyle = C.pink; ctx.shadowColor = C.pink;
+    ctx.fillText(cabinetState.tray >= cabinetState.trayMax ? 'TRAY FULL' : 'NO CHANGE', smx, smy + 5);
+  }
   ctx.restore();
 
   // Marquee
@@ -70,6 +76,85 @@ function drawCabinet() {
   fg.addColorStop(0, C.green); fg.addColorStop(1,'transparent');
   ctx.fillStyle = fg; ctx.fillRect(smx-60,smy,120,70);
   ctx.restore();
+
+  // ── COIN TRAY INDICATOR ──────────────────────────────────
+  // Small pip row on the bottom of the south face
+  drawTrayIndicator(wT, sT, sB, wB);
+}
+
+function drawTrayIndicator(wT, sT, sB, wB) {
+  // Position: bottom strip of the south face
+  const faceBottom = iso(CAB_TX + 0.5, CAB_TY + 1, 0.08);
+  const faceLeft   = iso(CAB_TX + 0.08, CAB_TY + 1, 0.18);
+  const faceRight  = iso(CAB_TX + 0.92, CAB_TY + 1, 0.18);
+
+  const pipCount   = 10;
+  const filled     = Math.round((cabinetState.tray / cabinetState.trayMax) * pipCount);
+  const color      = trayColor();
+  const totalW     = faceRight.x - faceLeft.x;
+  const pipW       = totalW / pipCount - 1;
+
+  for (let i = 0; i < pipCount; i++) {
+    const px = faceLeft.x + i * (totalW / pipCount);
+    const py = faceBottom.y - 6;
+    ctx.fillStyle = i < filled ? color : 'rgba(0,0,0,0.5)';
+    if (i < filled) { ctx.shadowColor = color; ctx.shadowBlur = 3; }
+    else ctx.shadowBlur = 0;
+    ctx.fillRect(Math.round(px), Math.round(py), Math.max(2, Math.round(pipW)), 4);
+  }
+  ctx.shadowBlur = 0;
+
+  // "COLLECT" label when tray is getting full
+  if (cabinetState.tray >= cabinetState.trayMax * 0.6) {
+    const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.006);
+    ctx.save();
+    ctx.globalAlpha = pulse;
+    ctx.fillStyle = trayColor();
+    ctx.font = '4px "Press Start 2P"'; ctx.textAlign = 'center';
+    ctx.fillText('\xA2 COLLECT', faceBottom.x, faceBottom.y - 10);
+    ctx.restore();
+  }
+}
+
+// ── CHANGE MACHINE INDICATOR ─────────────────────────────────
+function drawChangeMachineIndicator() {
+  if (!changeMachine.owned) return;
+
+  const wx=1.0, wy=1.5;
+  const facePos = iso(wx + 0.25, wy + 0.5, 0.5);
+
+  // Stock meter — vertical bar on the side
+  const meterH = 28;
+  const meterX = Math.round(facePos.x - 6);
+  const meterY = Math.round(facePos.y - meterH);
+  const fillH  = Math.round(meterH * (changeMachine.stock / changeMachine.stockMax));
+  const col    = changeMachineColor();
+
+  // Background
+  ctx.fillStyle = 'rgba(0,0,0,0.6)';
+  ctx.fillRect(meterX, meterY, 5, meterH);
+
+  // Fill
+  ctx.fillStyle = col;
+  if (fillH > 0) {
+    ctx.shadowColor = col; ctx.shadowBlur = 4;
+    ctx.fillRect(meterX, meterY + meterH - fillH, 5, fillH);
+  }
+  ctx.shadowBlur = 0;
+
+  // ¢ label
+  ctx.fillStyle = col; ctx.font = '5px "Press Start 2P"'; ctx.textAlign = 'center';
+  ctx.fillText('\xA2', meterX + 2, meterY - 2);
+
+  // Empty warning
+  if (changeMachine.stock <= 0) {
+    const pulse = 0.5 + 0.5 * Math.sin(Date.now() * 0.01);
+    ctx.save(); ctx.globalAlpha = pulse;
+    ctx.fillStyle = C.pink; ctx.shadowColor = C.pink; ctx.shadowBlur = 8;
+    ctx.font = '5px "Press Start 2P"'; ctx.textAlign = 'center';
+    ctx.fillText('EMPTY', facePos.x, facePos.y - 32);
+    ctx.restore();
+  }
 }
 
 // Queue floor markers
