@@ -9,8 +9,9 @@ const state = {
   cursorTick:   0,
   money:        0,
   moneyF:       85,       // starting cash
+  pocket:       0,        // coins collected from trays, not yet deposited
   week:         1,
-  year:         1987,     // always starts 1987
+  year:         1987,
   popularity:   30,
   patrons:      [],
   spawnTick:    0,
@@ -18,8 +19,6 @@ const state = {
   titleTick:    0,
   weekTick:     0,
   nearestInteractable: null,
-  interactPrompt:      null,
-  promptTimer:         0,
   owner: {
     wx: 2.5, wy: 3.5,
     speed: 0.055,
@@ -29,8 +28,23 @@ const state = {
   },
 };
 
+// ── CABINET TRAY STATE ───────────────────────────────────────
+// One entry per cabinet on the floor (currently just one)
+const cabinetState = {
+  tray:       0,        // coins in tray (0–20)
+  trayMax:    20,       // plays before full
+  accepting:  true,     // false when tray is full
+};
+
+// ── CHANGE MACHINE STATE ────────────────────────────────────
+const changeMachine = {
+  owned:      false,    // player hasn't bought it yet
+  stock:      0,        // current quarters (0–40 for Tier 1)
+  stockMax:   40,       // Tier 1 capacity
+  tier:       1,
+};
+
 // ── QUEUE / SLOT SYSTEM ─────────────────────────────────────
-// Defined here so patron.js and systems can both access it
 const CAB_TX = 4, CAB_TY = 2, CAB_H = 1.6;
 
 const PLAY_SPOTS = [
@@ -47,6 +61,14 @@ const QUEUE_SPOTS = [
 const slots = { play: [null, null], queue: [null, null, null, null] };
 
 function assignSlot(p) {
+  // Can't play without change machine stocked
+  if (!changeMachine.owned || changeMachine.stock <= 0) {
+    return false;
+  }
+  // Can't play if tray is full
+  if (!cabinetState.accepting) {
+    return false;
+  }
   const maxPlayers = MACHINE ? MACHINE.players : 2;
   for (let i = 0; i < maxPlayers; i++) {
     if (!slots.play[i]) {
@@ -103,7 +125,7 @@ function compactQueue() {
   });
 }
 
-// ── FLOATING TEXT PARTICLES ─────────────────────────────────
+// ── FLOATING TEXT ───────────────────────────────────────────
 const floatTexts = [];
 
 function showPrompt(text, wx, wy, color) {
