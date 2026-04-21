@@ -14,7 +14,8 @@ class Patron {
     this.color = PCOLORS[Math.floor(Math.random() * PCOLORS.length)];
     this.hairColor = hairColorFor(this.color);
     this.speed = 0.022 + Math.random() * 0.016;
-    this.tx = this.wx; this.ty = this.wy;
+    this.tx = 1.0 + Math.random() * 1.5;
+    this.ty = this.wy + (Math.random() - 0.5) * 0.5;
     this.st = 'ENTER';
     this.slotType = null; this.slotIdx = -1;
     this.playTick = 0;
@@ -22,8 +23,8 @@ class Patron {
     this.alpha    = 1;
     this.bob      = Math.random() * Math.PI * 2;
     this.entryDelay = rnd(20, 60);
-    this.tx = 1.0 + Math.random() * 1.5;
-    this.ty = this.wy + (Math.random() - 0.5) * 0.5;
+    // How often this patron inserts a quarter (in ticks)
+    this.insertEvery = 70 + rnd(0, 30);
   }
 
   update() {
@@ -34,6 +35,7 @@ class Patron {
     if (this.st === 'ENTER') {
       if (--this.entryDelay <= 0 || d < 0.12) {
         if (!assignSlot(this)) {
+          // No slot or no change — leave
           this.st = 'LEAVING';
           this.tx = 0.25; this.ty = 1.2 + Math.random() * (ROWS - 2.8);
         }
@@ -45,11 +47,21 @@ class Patron {
     }
 
     if (this.st === 'IN_SLOT' && this.slotType === 'play') {
-      if (++this.playTick % 70 === 0) {
-        state.moneyF += MACHINE.revenuePerPlay;
-        const sp = iso(this.wx, this.wy, 0.55);
-        spawnCoin(sp.x, sp.y);
+      this.playTick++;
+
+      // Insert a quarter at regular intervals
+      if (this.playTick % this.insertEvery === 0) {
+        const played = patronPlays();
+        if (!played) {
+          // No change or tray full — give up and leave
+          releaseSlot(this);
+          this.st = 'LEAVING';
+          this.tx = 0.25; this.ty = 1.2 + Math.random() * (ROWS - 2.8);
+          return;
+        }
       }
+
+      // Done playing
       if (this.playTick >= this.maxPlay) {
         releaseSlot(this);
         this.st = 'LEAVING';
@@ -84,36 +96,26 @@ class Patron {
     ctx.fillStyle = this.color;
     ctx.fillRect(px - 6, py - 11, 13, 12);
 
-    // Neck
+    // Neck + Head
     ctx.fillStyle = C.ownerSkin;
     ctx.fillRect(px - 2, py - 13, 5, 3);
-
-    // Head
-    ctx.fillStyle = C.ownerSkin;
     ctx.fillRect(px - 5, py - 23, 10, 11);
 
     // Hair
     ctx.fillStyle = this.hairColor;
     ctx.fillRect(px - 5, py - 23, 10, 4);
 
-    // Eyes
+    // Eyes + mouth
     ctx.fillStyle = '#111';
-    ctx.fillRect(px - 3, py - 19, 2, 2);
-    ctx.fillRect(px + 1, py - 19, 2, 2);
-
-    // Mouth
+    ctx.fillRect(px - 3, py - 19, 2, 2); ctx.fillRect(px + 1, py - 19, 2, 2);
     ctx.fillStyle = 'rgba(0,0,0,0.4)';
     ctx.fillRect(px - 1, py - 14, 3, 1);
 
     // Arms
     ctx.fillStyle = this.color;
-    ctx.fillRect(px - 8, py - 10, 3, 8);
-    ctx.fillRect(px + 6, py - 10, 3, 8);
-
-    // Hands
+    ctx.fillRect(px - 8, py - 10, 3, 8); ctx.fillRect(px + 6, py - 10, 3, 8);
     ctx.fillStyle = C.ownerSkin;
-    ctx.fillRect(px - 8, py - 2, 3, 3);
-    ctx.fillRect(px + 6, py - 2, 3, 3);
+    ctx.fillRect(px - 8, py - 2, 3, 3); ctx.fillRect(px + 6, py - 2, 3, 3);
 
     // Playing note
     if (this.st === 'IN_SLOT' && this.slotType === 'play' && Math.floor(Date.now() / 320) % 2 === 0) {
@@ -122,7 +124,7 @@ class Patron {
       ctx.fillText('\u266A', px, py - 27);
     }
 
-    // Queue wait indicator
+    // Queue wait dot
     if (this.st === 'IN_SLOT' && this.slotType === 'queue') {
       ctx.fillStyle = 'rgba(255,255,255,0.28)';
       ctx.font = '6px "Press Start 2P"'; ctx.textAlign = 'center';
