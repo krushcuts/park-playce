@@ -53,20 +53,17 @@ function doInteract(obj) {
     if (obj.state === 'BROKEN') {
       obj.state = 'OK';
       showPrompt('FIXED!', obj.wx, obj.wy, C.green);
-      state.moneyF += 5;
     } else if (obj.state === 'JAM') {
       obj.state = 'OK';
       showPrompt('JAM CLEARED', obj.wx, obj.wy, C.yellow);
-      for (let i = 0; i < 4; i++) {
-        const sp = iso(obj.wx, obj.wy, 0.4);
-        spawnCoin(sp.x, sp.y);
-      }
+      const sp = iso(obj.wx, obj.wy, 0.4);
+      for (let i = 0; i < 4; i++) spawnCoin(sp.x, sp.y);
     } else {
-      showPrompt('ALL GOOD', obj.wx, obj.wy, C.cyan);
+      collectTray();
     }
   }
   if (obj.id === 'change_machine') {
-    showPrompt('+RESTOCKED', obj.wx, obj.wy, C.green);
+    depositToChangeMachine();
   }
   if (obj.id === 'door') {
     obj.state = obj.state === 'OPEN' ? 'CLOSED' : 'OPEN';
