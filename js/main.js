@@ -56,10 +56,6 @@ function updateHUD() {
 
 function launchGame() {
   state.screen = 'GAME';
-  // Temp: give player a stocked change machine so coin loop works immediately
-  // TODO: replace with purchase system
-  changeMachine.owned   = true;
-  changeMachine.stock   = 40;
   document.getElementById('marquee').style.display    = 'block';
   document.getElementById('marquee-name').textContent = state.arcadeName;
   document.getElementById('hud').style.display        = 'flex';
