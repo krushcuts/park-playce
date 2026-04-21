@@ -23,13 +23,13 @@ const INTERACTABLES = [
     id: 'cabinet', label: 'IRON FIST', icon: '!',
     wx: 4.5, wy: 2.5, radius: 1.4,
     state: 'OK',
-    prompt: '[Z] INSPECT',
+    prompt: cabinetState && cabinetState.tray > 0 ? '[Z] COLLECT TRAY' : '[Z] CABINET',
   },
   {
     id: 'change_machine', label: 'CHANGE MACHINE', icon: '$',
     wx: 1.2, wy: 1.8, radius: 1.2,
     state: 'OK',
-    prompt: '[Z] RESTOCK',
+    prompt: '[Z] DEPOSIT COINS',
   },
   {
     id: 'door', label: 'DOOR', icon: '🚪',
